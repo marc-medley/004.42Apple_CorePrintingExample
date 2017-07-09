@@ -33,7 +33,7 @@ class PDFPagePrinterTests: XCTestCase {
                     continue
                 }
                 print("printer_name:\(name)")
-                _ = PrintUtil.getPMPrinterInfo(pmPrinter: printer)
+                print( PrintUtil.getPMPrinterInfo(pmPrinter: printer) )
             }
         }
         

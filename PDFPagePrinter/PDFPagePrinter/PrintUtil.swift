@@ -183,7 +183,7 @@ public class PrintUtil {
         // Printer State
         var printerState: PMPrinterState = 0
         let _ = PMPrinterGetState(pmPrinter, &printerState)
-        d["printerState"] = "printerState"
+        d["printerState"] = printerState
         switch printerState {
         case UInt16(kPMPrinterIdle) :
             d["printerStateName"] = "kPMPrinterIdle"
@@ -278,7 +278,7 @@ public class PrintUtil {
             //PMPaperGetPrinterID(PMPaper, UnsafeMutablePointer<Unmanaged<CFString>?>)
             for idx in 0..<CFArrayGetCount(paperList) {
                 let paper = PMPaper(CFArrayGetValueAtIndex(paperList, idx))!
-                paperArray.append(PrintUtil.getPMPaperInfo(pmPaper: paper))
+                paperArray.append(getPMPaperInfo(pmPaper: paper))
             }
             d["paperList"] = paperArray
         }

@@ -77,7 +77,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }        
         printInfo = printPanel.printInfo
         
-        let printSettingCPtr: PMPrintSettings = OpaquePointer(printInfo.pmPrintSettings()) 
+        let printSettingCPtr = PMPrintSettings(printInfo.pmPrintSettings()) 
         
         var printedPageRanges = Array<Array<UInt32>>()
         
