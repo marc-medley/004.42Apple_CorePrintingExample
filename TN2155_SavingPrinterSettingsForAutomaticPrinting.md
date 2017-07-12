@@ -1,13 +1,14 @@
 TN2155 Saving Printer Settings for Automatic Printing<br>_(Unofficial Swift Interpretation)_
-=====================================================
+==============================
 
 _This document provides a possible (unofficial) Swift interpretation of Apple's Objective-C Technical Note [TN2155 Saving Printer Settings for Automatic Printing](https://developer.apple.com/library/content/technotes/tn2155/_index.html) (revision 2007.03.29)._
 
-[Collecting Printing Information](#) |
-[Choosing From Available Printers](#) |
-[Obtaining Print settings via the Print & Page Setup Dialogs](#) |
-[Saving and Loading Print Settings](#) | 
-[Validating a Printer ID](#) |
+<a id="toc"></a>
+[List Available Printers](#ListAvailablePrinters) |
+[Obtain Print Settings via Dialog](#ObtainPrintSettingsviaDialog) |
+[Save Print Settings](#SavePrintSettings), 
+[Read Print Settings](#ReadPrintSettings) | 
+[Validate Printer ID](#ValidatePrinterID) |
 [Resources](#Resources)
 
 Printer ID specifies a particular print queue and can be saved in preferences. A `PMPrinter` cannot be saved in preferences.
@@ -17,7 +18,8 @@ Approachs to obtain an original `PMPrinter` to use for printing:
 * (simple) choose from a list of available printers, or 
 * (detailed) select a printer and print settings using the standard Print & Page Setup dialog boxes. 
 
-### Choosing From Available Printers
+<a id="ListAvailablePrinters"></a>
+### List Available Printers [▴](#toc)
 
 `PMServerCreatePrinterList` returns a `CFArray` of `PMPrinter` which are available and setup.
 
@@ -51,11 +53,12 @@ public static func getAvailablePrinterList()
 }
 ```
 
-### Obtaining Print settings via the Print & Page Setup Dialogs
+<a id="ObtainPrintSettingsviaDialog"></a>
+### Obtain Print Settings via Dialog [▴](#toc)
 
 Listing 2 shows how to display a Print Dialog and obtain the printer and print settings in order to reuse them again later.
 
-NOTE: `PMSessionPageSetupDialog` does not appear to be available for Swift 3.1, so `NSPageLayout` and `NSPrintSession` are used instead.
+_NOTE: `PMSessionPageSetupDialog` does not appear to be available for Swift 3.1, so `NSPageLayout` and `NSPrintSession` are used instead._
 
 **Listing 2**  Obtain Printer information from a Print Dialog
 
@@ -96,7 +99,8 @@ public static func getPrintInfoViaPanel()
 }
 ```
 
-### Save and Load Print Settings
+<a id="SavePrintSettings"></a>
+### Save and Read Print Settings [▴](#toc)
 
 Listing 3 shows how to save print settings to the application preferences with `CFPreferences`. Listing 4 shows how to recover the printer and print settings from preferences.  `prefix: String` allows an application to have multiple, different Print Preference sets to be stored.
 
@@ -164,7 +168,8 @@ public static func savePrintPreferences(
 }
 ```
 
-**Listing 4**  Read Print Preferences via `CFPreferences`
+<a id="ReadPrintSettings"></a>
+**Listing 4**  Read Print Settings via `CFPreferences` [▴](#toc)
 
 ``` swift
 public static func readPrintPreferences(prefix: String = "") 
@@ -218,7 +223,8 @@ public static func readPrintPreferences(prefix: String = "")
 ```
 
 
-Validate Printer ID
+<a id="ValidatePrinterID"></a>
+Validate Printer ID [▴](#toc)
 -------------------
 
 Simple routine to check if Print ID is valid prior to each printing operation.
@@ -248,7 +254,8 @@ public static func isValidPrinter(inPrinterID: CFString) -> Bool {
 }
 ```
 
-Resources
+<a id="Resources"></a>
+Resources [▴](#toc)
 ---------
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  
