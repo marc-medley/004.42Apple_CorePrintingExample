@@ -49,7 +49,7 @@ public class TN2155 {
             // Use Page Setup to get a page format
             let printInfo = NSPrintInfo()
             let pageLayout = NSPageLayout()
-            if pageLayout.runModal(with: printInfo) == NSModalResponseOK {   
+            if pageLayout.runModal(with: printInfo) == NSApplication.ModalResponse.OK.rawValue {   
                 return ( 
                     PMPrintSession(printInfo.pmPrintSession()), 
                     PMPrintSettings(printInfo.pmPrintSettings()), 
@@ -70,18 +70,18 @@ public class TN2155 {
             
             // set NSPrintPanel options as needed
             printPanel.options = [
-                NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
-                //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
-                .showsPaperSize,                 // Paper Size: US Letter, …
-                .showsOrientation,               // 
-                .showsScaling                    // 
-                //.showsPrintSelection,          // Pages: ( ) Selection
+                NSPrintPanel.Options.showsCopies,      // Copies:__ [] B&W [] Two-Sided
+                //.showsPageRange,                     // Pages: (•) All, ( ) From:__ To:__
+                NSPrintPanel.Options.showsPaperSize,   // Paper Size: US Letter, …
+                NSPrintPanel.Options.showsOrientation, // 
+                NSPrintPanel.Options.showsScaling      // 
+                //.showsPrintSelection,                // Pages: ( ) Selection
                 // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
                 //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
                 //.showsPreview
             ]
             
-            if printPanel.runModal(with: printInfo) == NSModalResponseOK {
+            if printPanel.runModal(with: printInfo) == NSApplication.ModalResponse.OK.rawValue {
                 return ( 
                     PMPrintSession(printInfo.pmPrintSession()), 
                     PMPrintSettings(printInfo.pmPrintSettings()), 
@@ -129,18 +129,18 @@ public class TN2155 {
             
             // set NSPrintPanel options as needed
             printPanel.options = [
-                NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
-                //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
-                .showsPaperSize,                 // Paper Size: US Letter, …
-                .showsOrientation,               // 
-                .showsScaling                    // 
-                //.showsPrintSelection,          // Pages: ( ) Selection
+                NSPrintPanel.Options.showsCopies,      // Copies:__ [] B&W [] Two-Sided
+                //.showsPageRange,                     // Pages: (•) All, ( ) From:__ To:__
+                NSPrintPanel.Options.showsPaperSize,   // Paper Size: US Letter, …
+                NSPrintPanel.Options.showsOrientation, // 
+                NSPrintPanel.Options.showsScaling      // 
+                //.showsPrintSelection,                // Pages: ( ) Selection
                 // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
                 //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
                 //.showsPreview
             ]
             
-            if printPanel.runModal(with: printInfo) == NSModalResponseOK {
+            if printPanel.runModal(with: printInfo) == NSApplication.ModalResponse.OK.rawValue {
                 return ( 
                     PMPrintSession(printInfo.pmPrintSession()), 
                     PMPrintSettings(printInfo.pmPrintSettings()), 

@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let openPanel = NSOpenPanel()
         openPanel.allowedFileTypes = [kUTTypePDF as String] // "com.adobe.pdf"
         openPanel.allowsMultipleSelection = true
-        if (openPanel.runModal() != NSFileHandlingPanelOKButton) { return }
+        if (openPanel.runModal() != NSApplication.ModalResponse.OK) { return }
         
         let filePaths: [String] = openPanel.urls.flatMap({ $0.path })
         application(NSApp, openFiles: filePaths)
@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
             textField.placeholderString = "1-2,18-19,21"
             alert.accessoryView = textField
-            if alert.runModal() != NSAlertFirstButtonReturn { continue }
+            if alert.runModal() != NSApplication.ModalResponse.alertFirstButtonReturn { continue }
             
             // PRINT
             var pageRanges = Array<Array<UInt32>>()
@@ -69,11 +69,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let printPanel = NSPrintPanel()
         
         printPanel.options = [
-            NSPrintPanelOptions.showsCopies, 
-            NSPrintPanelOptions.showsPageSetupAccessory
+            NSPrintPanel.Options.showsCopies, 
+            NSPrintPanel.Options.showsPageSetupAccessory
         ]
-                
-        if printPanel.runModal(with: printInfo) != NSModalResponseOK {
+        
+        if printPanel.runModal(with: printInfo) != NSApplication.ModalResponse.OK.rawValue {
             return []
         }        
         printInfo = printPanel.printInfo
