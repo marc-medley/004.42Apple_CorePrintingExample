@@ -1,5 +1,5 @@
 //
-//  PrintUtil.swift
+//  PrintData.swift
 //  PDFPagePrinter
 //
 //  Created by marc on 2017.07.04.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PrintUtil {
+public class PrintData {
     
     public static func getPMPageFormatInfo(pmPageFormat: PMPageFormat) -> Dictionary<String, Any> {
         var d = Dictionary<String, Any>()

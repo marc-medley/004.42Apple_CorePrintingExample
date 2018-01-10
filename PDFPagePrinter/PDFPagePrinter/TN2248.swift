@@ -79,7 +79,7 @@ public class TN2248 {
         //PMPaperGetPrinterID(PMPaper, UnsafeMutablePointer<Unmanaged<CFString>?>)
         for idx in 0..<CFArrayGetCount(paperList) {
             let paper = PMPaper(CFArrayGetValueAtIndex(paperList, idx))!
-            _ = PrintUtil.getPMPaperInfo(pmPaper: paper)
+            _ = PrintData.getPMPaperInfo(pmPaper: paper)
             var width = 0.0, height = 0.0
             PMPaperGetWidth(paper, &width)
             PMPaperGetHeight(paper, &height)

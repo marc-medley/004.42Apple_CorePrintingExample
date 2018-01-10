@@ -58,42 +58,59 @@ public static func getAvailablePrinterList()
 
 Listing 2 shows how to display a Print Dialog and obtain the printer and print settings in order to reuse them again later.
 
-_NOTE: `PMSessionPageSetupDialog` does not appear to be available for Swift 3.1, so `NSPageLayout` and `NSPrintSession` are used instead._
+_NOTE:_
+
+* `PMSessionPageSetupDialog` does not appear to be available for Swift 3.1. 
+* `NSPageLayout` can return changes values for `NSPaperName`, `NSPaperSize`, `NSOrientation`, `NSOrientation`  
+* `NSPrintSession` can optionally show scale, orientation and paper selection.
 
 **Listing 2**  Obtain Printer information from a Print Dialog
 
 ``` swift
-public static func getPrintInfoViaPanel() 
+public static func getPrintInfoViaPageSetupPanel() 
     -> (session: PMPrintSession, settings: PMPrintSettings, format: PMPageFormat)? {
         
     // Use Page Setup to get a page format
     let printInfo = NSPrintInfo()
     let pageLayout = NSPageLayout()
-    if pageLayout.runModal(with: printInfo) == NSModalResponseOK {
+    if pageLayout.runModal(with: printInfo) == NSModalResponseOK {   
+        return ( 
+            PMPrintSession(printInfo.pmPrintSession()), 
+            PMPrintSettings(printInfo.pmPrintSettings()), 
+            PMPageFormat(printInfo.pmPageFormat()) 
+        )
+    }
+    return nil
+}
+
+public static func getPrintInfoViaPrintPanel() 
+    -> (session: PMPrintSession, settings: PMPrintSettings, format: PMPageFormat)? {
         
-        let printPanel = NSPrintPanel()
-        printPanel.setDefaultButtonTitle("Save")
+    // Use Page Setup to get a page format
+    let printInfo = NSPrintInfo()
         
-        // set NSPrintPanel options as needed
-        printPanel.options = [
-            NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
-            //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
-            .showsPaperSize,                 // Paper Size: US Letter, …
-            .showsOrientation,               // 
-            .showsScaling                    // 
-            //.showsPrintSelection,          // Pages: ( ) Selection
-            // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
-            //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
-            //.showsPreview
-        ]
-        
-        if printPanel.runModal(with: printInfo) == NSModalResponseOK {
-            return ( 
-                PMPrintSession(printInfo.pmPrintSession()), 
-                PMPrintSettings(printInfo.pmPrintSettings()), 
-                PMPageFormat(printInfo.pmPageFormat()) 
-            )
-        }
+    let printPanel = NSPrintPanel()
+    printPanel.setDefaultButtonTitle("Save")
+    
+    // set NSPrintPanel options as needed
+    printPanel.options = [
+        NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
+        //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
+        .showsPaperSize,                 // Paper Size: US Letter, …
+        .showsOrientation,               // 
+        .showsScaling                    // 
+        //.showsPrintSelection,          // Pages: ( ) Selection
+        // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
+        //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
+        //.showsPreview
+    ]
+    
+    if printPanel.runModal(with: printInfo) == NSModalResponseOK {
+        return ( 
+            PMPrintSession(printInfo.pmPrintSession()), 
+            PMPrintSettings(printInfo.pmPrintSettings()), 
+            PMPageFormat(printInfo.pmPageFormat()) 
+        )
     }
     return nil
 }

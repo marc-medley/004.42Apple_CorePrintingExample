@@ -21,7 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         openPanel.allowsMultipleSelection = true
         if (openPanel.runModal() != NSFileHandlingPanelOKButton) { return }
         
-        application(NSApp, openFiles: openPanel.urls.flatMap({ $0.path }))
+        let filePaths: [String] = openPanel.urls.flatMap({ $0.path })
+        application(NSApp, openFiles: filePaths)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

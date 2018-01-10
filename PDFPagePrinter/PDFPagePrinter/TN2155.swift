@@ -11,7 +11,11 @@ import Quartz
 
 public class TN2155 {
     
-    /// Obtain available printer list
+    /// Obtain available printer list  
+    /// 
+    /// See also:
+    ///
+    /// - returns: (err, printers, printerNames)
     public static func getAvailablePrinterList() -> (err: OSStatus, printers: CFArray?, printerNames: [String]?) 
     {
         var outPrinters: CFArray? = nil
@@ -39,44 +43,57 @@ public class TN2155 {
     }
     
     /// Obtain print settings from dialog
-    public static func getPrintInfoViaPanel() 
+    public static func getPrintInfoViaPageSetupPanel() 
         -> (session: PMPrintSession, settings: PMPrintSettings, format: PMPageFormat)? {
             
             // Use Page Setup to get a page format
             let printInfo = NSPrintInfo()
             let pageLayout = NSPageLayout()
-            if pageLayout.runModal(with: printInfo) == NSModalResponseOK {
-                
-                let printPanel = NSPrintPanel()
-                printPanel.setDefaultButtonTitle("Save")
-                
-                // set NSPrintPanel options as needed
-                printPanel.options = [
-                    NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
-                    //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
-                    .showsPaperSize,                 // Paper Size: US Letter, …
-                    .showsOrientation,               // 
-                    .showsScaling                    // 
-                    //.showsPrintSelection,          // Pages: ( ) Selection
-                    // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
-                    //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
-                    //.showsPreview
-                ]
-                
-                if printPanel.runModal(with: printInfo) == NSModalResponseOK {
-                    return ( 
-                        PMPrintSession(printInfo.pmPrintSession()), 
-                        PMPrintSettings(printInfo.pmPrintSettings()), 
-                        PMPageFormat(printInfo.pmPageFormat()) 
-                    )
-                }
+            if pageLayout.runModal(with: printInfo) == NSModalResponseOK {   
+                return ( 
+                    PMPrintSession(printInfo.pmPrintSession()), 
+                    PMPrintSettings(printInfo.pmPrintSettings()), 
+                    PMPageFormat(printInfo.pmPageFormat()) 
+                )
+            }
+            return nil
+    }
+    
+    public static func getPrintInfoViaPrintPanel() 
+        -> (session: PMPrintSession, settings: PMPrintSettings, format: PMPageFormat)? {
+            
+            // Use Page Setup to get a page format
+            let printInfo = NSPrintInfo()
+            
+            let printPanel = NSPrintPanel()
+            printPanel.setDefaultButtonTitle("Save")
+            
+            // set NSPrintPanel options as needed
+            printPanel.options = [
+                NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
+                //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
+                .showsPaperSize,                 // Paper Size: US Letter, …
+                .showsOrientation,               // 
+                .showsScaling                    // 
+                //.showsPrintSelection,          // Pages: ( ) Selection
+                // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
+                //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
+                //.showsPreview
+            ]
+            
+            if printPanel.runModal(with: printInfo) == NSModalResponseOK {
+                return ( 
+                    PMPrintSession(printInfo.pmPrintSession()), 
+                    PMPrintSettings(printInfo.pmPrintSettings()), 
+                    PMPageFormat(printInfo.pmPageFormat()) 
+                )
             }
             return nil
     }
     
     /// Obtain print settings from dialog
     /// getPageSettingsAndFormat() version accesses PM for some initial setup
-    public static func getPrintInfoViaPanel2() -> (
+    public static func getPrintInfoViaPrintPanel2() -> (
         printSession: PMPrintSession,
         printSettings: PMPrintSettings,
         pageFormat: PMPageFormat
@@ -107,34 +124,30 @@ public class TN2155 {
             // PMPrinterSetOutputResolution(printer: PMPrinter, printSettings: PMPrintSettings, resolutionP: UnsafePointer<PMResolution>)
             printInfo.updateFromPMPrintSettings()
             
-            // Use Page Setup to get a page format
-            let pageLayout = NSPageLayout()
-            if pageLayout.runModal(with: printInfo) == NSModalResponseOK {
-                
-                let printPanel = NSPrintPanel()
-                printPanel.setDefaultButtonTitle("Save")
-                
-                // set NSPrintPanel options as needed
-                printPanel.options = [
-                    NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
-                    //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
-                    .showsPaperSize,                 // Paper Size: US Letter, …
-                    .showsOrientation,               // 
-                    .showsScaling                    // 
-                    //.showsPrintSelection,          // Pages: ( ) Selection
-                    // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
-                    //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
-                    //.showsPreview
-                ]
-                
-                if printPanel.runModal(with: printInfo) == NSModalResponseOK {
-                    return ( 
-                        PMPrintSession(printInfo.pmPrintSession()), 
-                        PMPrintSettings(printInfo.pmPrintSettings()), 
-                        PMPageFormat(printInfo.pmPageFormat()) 
-                    )
-                }
+            let printPanel = NSPrintPanel()
+            printPanel.setDefaultButtonTitle("Save")
+            
+            // set NSPrintPanel options as needed
+            printPanel.options = [
+                NSPrintPanelOptions.showsCopies, // Copies:__ [] B&W [] Two-Sided
+                //.showsPageRange,               // Pages: (•) All, ( ) From:__ To:__
+                .showsPaperSize,                 // Paper Size: US Letter, …
+                .showsOrientation,               // 
+                .showsScaling                    // 
+                //.showsPrintSelection,          // Pages: ( ) Selection
+                // showsPaperSize, showsOrientation, showsScaling affect showsPageSetupAccessory
+                //.showsPageSetupAccessory, // Paper Size, Orientation, Scale
+                //.showsPreview
+            ]
+            
+            if printPanel.runModal(with: printInfo) == NSModalResponseOK {
+                return ( 
+                    PMPrintSession(printInfo.pmPrintSession()), 
+                    PMPrintSettings(printInfo.pmPrintSettings()), 
+                    PMPageFormat(printInfo.pmPageFormat()) 
+                )
             }
+            
             return nil
     }
     
@@ -285,51 +298,51 @@ public class TN2155 {
     /// Restore print settings from preferences
     public static func readPrintPreferences(prefix: String = "") 
         -> (id:CFString, settings: PMPrintSettings, format: PMPageFormat)? {
-        
-        let kPrinterID: CFString = "\(prefix)kPrinterIDKey" as CFString
-        let kPrintSettings: CFString = "\(prefix)kPrintSettingsKey" as CFString 
-        let kPageFormat: CFString = "\(prefix)kPageFormatKey" as CFString 
-        
-        var printerID: CFString = "" as CFString
-        var printSettings: PMPrintSettings = unsafeBitCast(0, to: PMPrintSettings.self)
-        var pageFormat: PMPageFormat = unsafeBitCast(0, to: PMPageFormat.self)
-        
-        // -- Printer ID -- 
-        // load the printer ID via CFPreferences
-        guard let outPrinterID: CFPropertyList = CFPreferencesCopyAppValue( 
-            kPrinterID,                      // key: CFString
-            kCFPreferencesCurrentApplication // applicationID: CFString
-            ) else {
-                return nil
-        }
-        
-        printerID = outPrinterID as! CFString
-        
-        // -- Printer Settings --
-        guard let settingsPropertyList: CFPropertyList = CFPreferencesCopyAppValue( 
-            kPrintSettings, // key: CFString
-            kCFPreferencesCurrentApplication // applicationID: CFString
-            ) else {
-                return nil
-        }
-        _ = PMPrintSettingsCreateWithDataRepresentation(
-            settingsPropertyList as! CFData,  // _ data: CFData 
-            &printSettings // _ printSettings: UnsafeMutablePointer<PMPrintSettings>
-        )
-        
-        // -- Page Format --
-        guard let formatPropertyList: CFPropertyList = CFPreferencesCopyAppValue( 
-            kPageFormat, 
-            kCFPreferencesCurrentApplication 
-            ) else { 
-                return nil 
-        }
-        _ = PMPageFormatCreateWithDataRepresentation(
-            formatPropertyList as! CFData, // _ data: CFData
-            &pageFormat // _ pageFormat: UnsafeMutablePointer<PMPageFormat>
-        )
-        
-        return (printerID, printSettings, pageFormat)
+            
+            let kPrinterID: CFString = "\(prefix)kPrinterIDKey" as CFString
+            let kPrintSettings: CFString = "\(prefix)kPrintSettingsKey" as CFString 
+            let kPageFormat: CFString = "\(prefix)kPageFormatKey" as CFString 
+            
+            var printerID: CFString = "" as CFString
+            var printSettings: PMPrintSettings = unsafeBitCast(0, to: PMPrintSettings.self)
+            var pageFormat: PMPageFormat = unsafeBitCast(0, to: PMPageFormat.self)
+            
+            // -- Printer ID -- 
+            // load the printer ID via CFPreferences
+            guard let outPrinterID: CFPropertyList = CFPreferencesCopyAppValue( 
+                kPrinterID,                      // key: CFString
+                kCFPreferencesCurrentApplication // applicationID: CFString
+                ) else {
+                    return nil
+            }
+            
+            printerID = outPrinterID as! CFString
+            
+            // -- Printer Settings --
+            guard let settingsPropertyList: CFPropertyList = CFPreferencesCopyAppValue( 
+                kPrintSettings, // key: CFString
+                kCFPreferencesCurrentApplication // applicationID: CFString
+                ) else {
+                    return nil
+            }
+            _ = PMPrintSettingsCreateWithDataRepresentation(
+                settingsPropertyList as! CFData,  // _ data: CFData 
+                &printSettings // _ printSettings: UnsafeMutablePointer<PMPrintSettings>
+            )
+            
+            // -- Page Format --
+            guard let formatPropertyList: CFPropertyList = CFPreferencesCopyAppValue( 
+                kPageFormat, 
+                kCFPreferencesCurrentApplication 
+                ) else { 
+                    return nil 
+            }
+            _ = PMPageFormatCreateWithDataRepresentation(
+                formatPropertyList as! CFData, // _ data: CFData
+                &pageFormat // _ pageFormat: UnsafeMutablePointer<PMPageFormat>
+            )
+            
+            return (printerID, printSettings, pageFormat)
     }
     
     // One approach to validate a printer.

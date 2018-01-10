@@ -22,6 +22,7 @@ class PDFPagePrinterTests: XCTestCase {
     }
     
     func testExample() {
+        // printerID: "EPSON_R2880", "EPSON_WF_7520", PT_9500PC_, "Brother_PT9500PC"
         //        _ = TN2248.replacePageFormat()
         let result01 = TN2155.getAvailablePrinterList()
         print("printer names=\(result01.printerNames ?? ["empty list"])")
@@ -33,14 +34,14 @@ class PDFPagePrinterTests: XCTestCase {
                     continue
                 }
                 print("printer_name:\(name)")
-                print( PrintUtil.getPMPrinterInfo(pmPrinter: printer) )
+                print( PrintData.getPMPrinterInfo(pmPrinter: printer) )
             }
         }
         
-        if let printPreferencesFromUser = TN2155.getPrintInfoViaPanel() {
-            let userSession = PrintUtil.getPMPrintSessionInfo(pmPrintSession: printPreferencesFromUser.session)
-            let userSettings = PrintUtil.getPMPrintSettingsInfo(pmPrintSettings: printPreferencesFromUser.settings)
-            let userPageFormat = PrintUtil.getPMPageFormatInfo(pmPageFormat: printPreferencesFromUser.format)
+        if let printPreferencesFromUser = TN2155.getPrintInfoViaPrintPanel() {
+            let userSession = PrintData.getPMPrintSessionInfo(pmPrintSession: printPreferencesFromUser.session)
+            let userSettings = PrintData.getPMPrintSettingsInfo(pmPrintSettings: printPreferencesFromUser.settings)
+            let userPageFormat = PrintData.getPMPageFormatInfo(pmPageFormat: printPreferencesFromUser.format)
             print("printPreferencesFromUser.session=\(userSession)")
             print("printPreferencesFromUser.settings=\(userSettings)")
             print("printPreferencesFromUser/format=\(userPageFormat)")
@@ -48,15 +49,15 @@ class PDFPagePrinterTests: XCTestCase {
             _ = TN2155.savePrintPreferences(data: printPreferencesFromUser, prefix: "sample_")
             
             if let restoredPreferences = TN2155.readPrintPreferences(prefix: "sample_") {
-                let restoredSettings = PrintUtil.getPMPrintSettingsInfo(pmPrintSettings: restoredPreferences.settings)
-                let restoredPageFormat = PrintUtil.getPMPageFormatInfo(pmPageFormat: restoredPreferences.format)
+                let restoredSettings = PrintData.getPMPrintSettingsInfo(pmPrintSettings: restoredPreferences.settings)
+                let restoredPageFormat = PrintData.getPMPageFormatInfo(pmPageFormat: restoredPreferences.format)
                 print("restoredPreferences.printerID=\(restoredPreferences.id)")
                 print("restoredPreferences.settings=\(restoredSettings)")
                 print("restoredPreferences.format=\(restoredPageFormat)")
             }
         }
         
-        _ = TN2155.getPrintInfoViaPanel2()
+        _ = TN2155.getPrintInfoViaPrintPanel2()
     }
     
     func testPerformanceExample() {

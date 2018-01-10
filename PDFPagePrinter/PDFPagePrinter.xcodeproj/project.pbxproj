@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		491F6A111F08297E00E87468 /* TN2248.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F6A101F08297E00E87468 /* TN2248.swift */; };
 		494EF3E21F08CA4700EA500F /* TN2155.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EF3E11F08CA4700EA500F /* TN2155.swift */; };
-		49C0535B1F0C7E630041CDBE /* PrintUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C0535A1F0C7E630041CDBE /* PrintUtil.swift */; };
+		49C0535B1F0C7E630041CDBE /* PrintData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C0535A1F0C7E630041CDBE /* PrintData.swift */; };
 		49E33FA21F081F2700826B4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E33FA11F081F2700826B4D /* AppDelegate.swift */; };
 		49E33FA61F081F2700826B4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49E33FA51F081F2700826B4D /* Assets.xcassets */; };
 		49E33FA91F081F2700826B4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49E33FA71F081F2700826B4D /* Main.storyboard */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		491F6A101F08297E00E87468 /* TN2248.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TN2248.swift; sourceTree = "<group>"; };
 		494EF3E11F08CA4700EA500F /* TN2155.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TN2155.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		49C0535A1F0C7E630041CDBE /* PrintUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintUtil.swift; sourceTree = "<group>"; };
+		49C0535A1F0C7E630041CDBE /* PrintData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintData.swift; sourceTree = "<group>"; };
 		49E33F9E1F081F2700826B4D /* PDFPagePrinter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFPagePrinter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E33FA11F081F2700826B4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		49E33FA51F081F2700826B4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				49E33FA11F081F2700826B4D /* AppDelegate.swift */,
-				49C0535A1F0C7E630041CDBE /* PrintUtil.swift */,
+				49C0535A1F0C7E630041CDBE /* PrintData.swift */,
 				494EF3E11F08CA4700EA500F /* TN2155.swift */,
 				491F6A101F08297E00E87468 /* TN2248.swift */,
 				49E33FA51F081F2700826B4D /* Assets.xcassets */,
@@ -262,7 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49E33FA21F081F2700826B4D /* AppDelegate.swift in Sources */,
-				49C0535B1F0C7E630041CDBE /* PrintUtil.swift in Sources */,
+				49C0535B1F0C7E630041CDBE /* PrintData.swift in Sources */,
 				491F6A111F08297E00E87468 /* TN2248.swift in Sources */,
 				494EF3E21F08CA4700EA500F /* TN2155.swift in Sources */,
 			);
