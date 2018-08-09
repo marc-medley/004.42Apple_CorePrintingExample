@@ -1,5 +1,4 @@
-TN2155 Saving Printer Settings for Automatic Printing<br>_(Unofficial Swift Interpretation)_
-==============================
+# TN2155 Saving Printer Settings for Automatic Printing<br>_(Unofficial Swift Interpretation)_
 
 _This document provides a possible (unofficial) Swift interpretation of Apple's Objective-C Technical Note [TN2155 Saving Printer Settings for Automatic Printing](https://developer.apple.com/library/content/technotes/tn2155/_index.html) (revision 2007.03.29)._
 
@@ -18,8 +17,7 @@ Approachs to obtain an original `PMPrinter` to use for printing:
 * (simple) choose from a list of available printers, or 
 * (detailed) select a printer and print settings using the standard Print & Page Setup dialog boxes. 
 
-<a id="ListAvailablePrinters"></a>
-### List Available Printers [▴](#toc)
+### List Available Printers <a id="ListAvailablePrinters">[▴](#toc)</a>
 
 `PMServerCreatePrinterList` returns a `CFArray` of `PMPrinter` which are available and setup.
 
@@ -53,8 +51,7 @@ public static func getAvailablePrinterList()
 }
 ```
 
-<a id="ObtainPrintSettingsviaDialog"></a>
-### Obtain Print Settings via Dialog [▴](#toc)
+### Obtain Print Settings via Dialog <a id="ObtainPrintSettingsviaDialog">[▴](#toc)</a>
 
 Listing 2 shows how to display a Print Dialog and obtain the printer and print settings in order to reuse them again later.
 
@@ -116,8 +113,7 @@ public static func getPrintInfoViaPrintPanel()
 }
 ```
 
-<a id="SavePrintSettings"></a>
-### Save and Read Print Settings [▴](#toc)
+### Save and Read Print Settings <a id="SavePrintSettings">[▴](#toc)</a>
 
 Listing 3 shows how to save print settings to the application preferences with `CFPreferences`. Listing 4 shows how to recover the printer and print settings from preferences.  `prefix: String` allows an application to have multiple, different Print Preference sets to be stored.
 
@@ -185,8 +181,7 @@ public static func savePrintPreferences(
 }
 ```
 
-<a id="ReadPrintSettings"></a>
-**Listing 4**  Read Print Settings via `CFPreferences` [▴](#toc)
+**Listing 4**  Read Print Settings via `CFPreferences` <a id="ReadPrintSettings">[▴](#toc)</a>
 
 ``` swift
 public static func readPrintPreferences(prefix: String = "") 
@@ -240,9 +235,8 @@ public static func readPrintPreferences(prefix: String = "")
 ```
 
 
-<a id="ValidatePrinterID"></a>
-Validate Printer ID [▴](#toc)
--------------------
+## Validate Printer ID <a id="ValidatePrinterID">[▴](#toc)</a>
+
 
 Simple routine to check if Print ID is valid prior to each printing operation.
 
@@ -271,9 +265,8 @@ public static func isValidPrinter(inPrinterID: CFString) -> Bool {
 }
 ```
 
-<a id="Resources"></a>
-Resources [▴](#toc)
----------
+## Resources <a id="Resources">[▴](#toc)</a>
+
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  
 [Apple/Technical Note: TN2155 Saving Printer Settings for Automatic Printing ⇗](https://developer.apple.com/library/content/technotes/tn2155/_index.html) _2007-03-29_

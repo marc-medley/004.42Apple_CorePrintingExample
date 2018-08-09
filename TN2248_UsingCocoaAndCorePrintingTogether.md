@@ -1,14 +1,12 @@
-TN2248 Using Cocoa and Core Printing Together<br>_(Unofficial Swift Interpretation)_
-======================================
+# TN2248 Using Cocoa and Core Printing Together<br>_(Unofficial Swift Interpretation)_
 
 _This document provides a possible (unofficial) Swift interpretation of Apple's  Objective-C Technical Note [TN2248 Using Cocoa and Core Printing Together](https://developer.apple.com/library/content/technotes/tn2248/_index.html) (revision 2009.05.27)._
 
 <a id="toc"></a>
 | [Modifying Print Settings](#ModifyingPrintSettings) | [Programmatic Paper Selection](#ProgrammaticPaperSelection) | [Resources](#Resources) | 
 
-<a id="ModifyingPrintSettings"></a>
-Modifying Print Settings [▴](#toc)
-------------------------
+## Modifying Print Settings <a id="ModifyingPrintSettings">[▴](#toc)</a>
+
 
 How to modify print settings information that is stored in an NSPrintInfo object. Error handling is not shown.
 
@@ -37,9 +35,8 @@ PMSetCollate(settings, true)     // enable collation
 printInfo.updateFromPMPrintSettings()
 ```
 
-<a id="ProgrammaticPaperSelection"></a>
-Programmatic Paper Selection [▴](#toc)
-----------------------------
+## Programmatic Paper Selection <a id="ProgrammaticPaperSelection">[▴](#toc)</a>
+
 
 This code snippet illustrates how to replace one of the low level Core Printing objects stored in an NSPrintInfo with a custom object you obtain or create.
 
@@ -115,9 +112,8 @@ public static func replacePageFormat() -> Int {
 }
 ```
 
-<a id="Resources"></a>
-Resources [▴](#toc)
----------
+## Resources <a id="Resources">[▴](#toc)</a>
+
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  
 [Apple/TechnicalNote: TN2248 Using Cocoa and Core Printing Together ⇗](https://developer.apple.com/library/content/technotes/tn2248/_index.html) _2009-05-27_
