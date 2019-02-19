@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         openPanel.allowsMultipleSelection = true
         if (openPanel.runModal() != NSApplication.ModalResponse.OK) { return }
         
-        let filePaths: [String] = openPanel.urls.flatMap({ $0.path })
+        let filePaths: [String] = openPanel.urls.compactMap({ $0.path })
         application(NSApp, openFiles: filePaths)
     }
 
@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let text = textField.stringValue.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789,-").inverted)
             let components = text.components(separatedBy: ",")
             for component in components { 
-                pageRanges.append(component.components(separatedBy: "-").flatMap({ UInt32($0) })) 
+                pageRanges.append(component.components(separatedBy: "-").compactMap({ UInt32($0) })) 
             }
             
             let printedPageRanges = printPDF(URL(fileURLWithPath: path), pageRanges: pageRanges)
