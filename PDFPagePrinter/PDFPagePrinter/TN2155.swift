@@ -248,14 +248,15 @@ public class TN2155 {
         let kPrintSettings: CFString = "\(prefix)kPrintSettingsKey" as CFString 
         let kPageFormat: CFString = "\(prefix)kPageFormatKey" as CFString 
         
-        var printer: PMPrinter = unsafeBitCast(0, to: PMPrinter.self)
+        var printerOptional: PMPrinter?
         
         var err: OSStatus = noErr
         var tempErr: OSStatus = noErr
         
         // First, attempt to get the current printer from the print session
         // If an error occurs, then simply return that error and do nothing else
-        err = PMSessionGetCurrentPrinter( session, &printer )
+        err = PMSessionGetCurrentPrinter( session, &printerOptional )
+        guard let printer = printerOptional else { return err }
         if err == noErr {
             // If PMSessionGetCurrentPrinter returns successfully, then the printer is valid
             // for as long as the session is valid, therefore we will assume that the printer name is valid.
@@ -266,8 +267,10 @@ public class TN2155 {
             CFPreferencesSetAppValue( kPrinterID, printerID, kCFPreferencesCurrentApplication )
             
             // -- Preferences Set: Print Settings --
-            var settingsDataUnmanaged: Unmanaged<CFData> = unsafeBitCast(0, to: Unmanaged<CFData>.self)
-            tempErr = PMPrintSettingsCreateDataRepresentation(settings, &settingsDataUnmanaged, kPMDataFormatXMLMinimal) 
+            var settingsDataUnmanagedOptional: Unmanaged<CFData>?
+            tempErr = PMPrintSettingsCreateDataRepresentation(settings, &settingsDataUnmanagedOptional, kPMDataFormatXMLMinimal)
+            guard let settingsDataUnmanaged = settingsDataUnmanagedOptional else { fatalError() }
+            
             if tempErr == noErr  {
                 // If print settings are created, then save them to preferences
                 let settingsData: CFData = settingsDataUnmanaged.takeUnretainedValue() as CFData
@@ -279,9 +282,10 @@ public class TN2155 {
             }
             
             // -- Preferences Set: Page Format --
-            var formatDataUnmanaged: Unmanaged<CFData> = unsafeBitCast(0, to: Unmanaged<CFData>.self)
+            var formatDataUnmanagedOptional: Unmanaged<CFData>?
             // kPMDataFormatXMLMinimal, 
-            tempErr = PMPageFormatCreateDataRepresentation(format, &formatDataUnmanaged, kPMDataFormatXMLDefault)
+            tempErr = PMPageFormatCreateDataRepresentation(format, &formatDataUnmanagedOptional, kPMDataFormatXMLDefault)
+            guard let formatDataUnmanaged = formatDataUnmanagedOptional else { fatalError() }
             if tempErr == noErr  {
                 // If page format data is created, then save data to preferences
                 let formatData: CFData = formatDataUnmanaged.takeUnretainedValue() as CFData
@@ -304,8 +308,8 @@ public class TN2155 {
             let kPageFormat: CFString = "\(prefix)kPageFormatKey" as CFString 
             
             var printerID: CFString = "" as CFString
-            var printSettings: PMPrintSettings = unsafeBitCast(0, to: PMPrintSettings.self)
-            var pageFormat: PMPageFormat = unsafeBitCast(0, to: PMPageFormat.self)
+            var printSettingsOptional: PMPrintSettings?
+            var pageFormatOptional: PMPageFormat?
             
             // -- Printer ID -- 
             // load the printer ID via CFPreferences
@@ -327,8 +331,9 @@ public class TN2155 {
             }
             _ = PMPrintSettingsCreateWithDataRepresentation(
                 settingsPropertyList as! CFData,  // _ data: CFData 
-                &printSettings // _ printSettings: UnsafeMutablePointer<PMPrintSettings>
+                &printSettingsOptional // _ printSettings: UnsafeMutablePointer<PMPrintSettings>
             )
+            guard let printSettings = printSettingsOptional else { fatalError() }
             
             // -- Page Format --
             guard let formatPropertyList: CFPropertyList = CFPreferencesCopyAppValue( 
@@ -339,8 +344,9 @@ public class TN2155 {
             }
             _ = PMPageFormatCreateWithDataRepresentation(
                 formatPropertyList as! CFData, // _ data: CFData
-                &pageFormat // _ pageFormat: UnsafeMutablePointer<PMPageFormat>
+                &pageFormatOptional // _ pageFormat: UnsafeMutablePointer<PMPageFormat>
             )
+            guard let pageFormat = pageFormatOptional else { fatalError() }
             
             return (printerID, printSettings, pageFormat)
     }

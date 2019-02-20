@@ -18,8 +18,13 @@ public class PrintData {
         //    _ size: UnsafeMutablePointer<UInt32>?, 
         //    _ extendedData: UnsafeMutableRawPointer?)
         
-        var pmPaper = unsafeBitCast(0, to: PMPaper.self)
-        PMGetPageFormatPaper(pmPageFormat, &pmPaper)
+        var pmPaperOptional: PMPaper?
+        // Cannot pass immutable value as inout argument:
+        //   implicit conversion from 'PMPaper' to 'PMPaper?' requires a temporary
+        // PMGetPageFormatPaper(format: PMPageFormat, paper: UnsafeMutablePointer<PMPaper?>)
+        PMGetPageFormatPaper(pmPageFormat, &pmPaperOptional)
+        guard let pmPaper = pmPaperOptional else { fatalError() }
+        
         d["pmPaper"] = getPMPaperInfo(pmPaper: pmPaper)
         
         var printerIDUnmanaged: Unmanaged<CFString>?
@@ -68,8 +73,9 @@ public class PrintData {
         }
         
         // func PMPaperGetID(PMPaper, UnsafeMutablePointer<Unmanaged<CFString>>)
-        var paperIDUnmanaged: Unmanaged<CFString> = unsafeBitCast(0, to: Unmanaged<CFString>.self)
-        PMPaperGetID(pmPaper, &paperIDUnmanaged)
+        var paperIDUnmanagedOptional: Unmanaged<CFString>?
+        PMPaperGetID(pmPaper, &paperIDUnmanagedOptional)
+        guard let paperIDUnmanaged = paperIDUnmanagedOptional else { fatalError() }
         let paperID: CFString = paperIDUnmanaged.takeUnretainedValue()
         d["paperID"] = paperID as String
         
@@ -116,8 +122,9 @@ public class PrintData {
         }        
         
         // Host Name
-        var hostNameUnmanaged: Unmanaged<CFString> = unsafeBitCast(0, to: Unmanaged<CFString>.self)
-        let _ = PMPrinterCopyHostName(pmPrinter, &hostNameUnmanaged)
+        var hostNameUnmanagedOptional: Unmanaged<CFString>?
+        let _ = PMPrinterCopyHostName(pmPrinter, &hostNameUnmanagedOptional)
+        guard let hostNameUnmanaged = hostNameUnmanagedOptional else { fatalError() }
         let hostName = hostNameUnmanaged.takeUnretainedValue() as String
         d["hostName"] = String(hostName)
   
@@ -289,8 +296,9 @@ public class PrintData {
     public static func getPMPrintSessionInfo(pmPrintSession: PMPrintSession) -> Dictionary<String, Any> {
         var d = Dictionary<String, Any>()
         
-        var currentPrinter = unsafeBitCast(0, to: PMPrinter.self) 
-        PMSessionGetCurrentPrinter(pmPrintSession, &currentPrinter)
+        var currentPrinterOptional: PMPrinter?
+        PMSessionGetCurrentPrinter(pmPrintSession, &currentPrinterOptional)
+        guard let currentPrinter = currentPrinterOptional else { fatalError() }
         d["currentPrinter"] = getPMPrinterInfo(pmPrinter: currentPrinter)
         
         // PMSessionGetCGGraphicsContext(_ printSession: PMPrintSession, 

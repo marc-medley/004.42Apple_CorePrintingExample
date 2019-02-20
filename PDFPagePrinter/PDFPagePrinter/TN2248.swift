@@ -57,8 +57,9 @@ public class TN2248 {
         let printSession = PMPrintSession(printInfo.pmPrintSession())
         
         /// Get the current printer from the session.
-        var currentPrinter = unsafeBitCast(0, to: PMPrinter.self)
-        PMSessionGetCurrentPrinter(printSession, &currentPrinter)
+        var currentPrinterOptional: PMPrinter?
+        PMSessionGetCurrentPrinter(printSession, &currentPrinterOptional)
+        guard let currentPrinter = currentPrinterOptional else { fatalError() }
         
         // Get the array of pre-defined PMPapers this printer supports.
         // PMPrinterGetPaperList(PMPrinter, UnsafeMutablePointer<Unmanaged<CFArray>?>)
@@ -89,8 +90,9 @@ public class TN2248 {
         
         // Create a PMPageFormat from that paper.
         // func PMCreatePageFormatWithPMPaper(UnsafeMutablePointer<PMPageFormat>, PMPaper) -> OSStatus
-        var chosenPageFormat: PMPageFormat = unsafeBitCast(0, to: PMPageFormat.self)
-        PMCreatePageFormatWithPMPaper(&chosenPageFormat, chosenPaper)
+        var chosenPageFormatOptional: PMPageFormat?
+        PMCreatePageFormatWithPMPaper(&chosenPageFormatOptional, chosenPaper)
+        guard let chosenPageFormat = chosenPageFormatOptional else { fatalError() }
         
         // Get the PMPageFormat contained in the printInfo.
         let originalFormat = PMPageFormat(printInfo.pmPageFormat())
