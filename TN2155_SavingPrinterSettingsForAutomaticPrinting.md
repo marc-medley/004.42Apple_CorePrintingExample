@@ -17,7 +17,7 @@ Approachs to obtain an original `PMPrinter` to use for printing:
 * (simple) choose from a list of available printers, or 
 * (detailed) select a printer and print settings using the standard Print & Page Setup dialog boxes. 
 
-### List Available Printers <a id="ListAvailablePrinters">[▴](#toc)</a>
+### List Available Printers <a id="ListAvailablePrinters"></a>[▴](#toc)
 
 `PMServerCreatePrinterList` returns a `CFArray` of `PMPrinter` which are available and setup.
 
@@ -51,7 +51,7 @@ public static func getAvailablePrinterList()
 }
 ```
 
-### Obtain Print Settings via Dialog <a id="ObtainPrintSettingsviaDialog">[▴](#toc)</a>
+### Obtain Print Settings via Dialog <a id="ObtainPrintSettingsviaDialog"></a>[▴](#toc)
 
 Listing 2 shows how to display a Print Dialog and obtain the printer and print settings in order to reuse them again later.
 
@@ -113,7 +113,7 @@ public static func getPrintInfoViaPrintPanel()
 }
 ```
 
-### Save and Read Print Settings <a id="SavePrintSettings">[▴](#toc)</a>
+### Save and Read Print Settings <a id="SavePrintSettings"></a>[▴](#toc)
 
 Listing 3 shows how to save print settings to the application preferences with `CFPreferences`. Listing 4 shows how to recover the printer and print settings from preferences.  `prefix: String` allows an application to have multiple, different Print Preference sets to be stored.
 
@@ -181,7 +181,7 @@ public static func savePrintPreferences(
 }
 ```
 
-**Listing 4**  Read Print Settings via `CFPreferences` <a id="ReadPrintSettings">[▴](#toc)</a>
+**Listing 4**  Read Print Settings via `CFPreferences` <a id="ReadPrintSettings"></a>[▴](#toc)
 
 ``` swift
 public static func readPrintPreferences(prefix: String = "") 
@@ -235,7 +235,7 @@ public static func readPrintPreferences(prefix: String = "")
 ```
 
 
-## Validate Printer ID <a id="ValidatePrinterID">[▴](#toc)</a>
+## Validate Printer ID <a id="ValidatePrinterID"></a>[▴](#toc)
 
 
 Simple routine to check if Print ID is valid prior to each printing operation.
@@ -265,7 +265,7 @@ public static func isValidPrinter(inPrinterID: CFString) -> Bool {
 }
 ```
 
-## Resources <a id="Resources">[▴](#toc)</a>
+## Resources <a id="Resources"></a>[▴](#toc)
 
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  

@@ -6,7 +6,7 @@ _macOS [Core Printing](https://developer.apple.com/documentation/applicationserv
 <a id="toc"></a>
 | [PDFPagePrinter](#PDFPagePrinter) | [Technical Notes](#TechnicalNotes) | [Utility Routines](#UtilityRoutines) | [Resources](#Resources) | 
 
-## PDFPagePrinter <a id="PDFPagePrinter">[▴](#toc)</a>
+## PDFPagePrinter <a id="PDFPagePrinter"></a>[▴](#toc)
 
 
 PDFPagePrinter is an example Swift macOS Core Printing application which prints multiple ranges of PDF pages using the same printer settings.
@@ -15,18 +15,18 @@ PDFPagePrinter is an example Swift macOS Core Printing application which prints 
 
 PDFPagePrinter source code is contained in [AppDelegate.swift](PDFPagePrinter/PDFPagePrinter/AppDelegate.swift).
 
-## Technical Notes <a id="TechnicalNotes">[▴](#toc)</a>
+## Technical Notes <a id="TechnicalNotes"></a>[▴](#toc)
 
 
 [TN2155_SavingPrinterSettingsForAutomaticPrinting.md](TN2155_SavingPrinterSettingsForAutomaticPrinting.md) provides a possible (unofficial) Swift interpretation of Apple's Objective-C Technical Note [TN2155 Saving Printer Settings for Automatic Printing](https://developer.apple.com/library/content/technotes/tn2155/_index.html) (revision 2007.03.29).
 
 [TN2248_UsingCocoaAndCorePrintingTogether.md](TN2248_UsingCocoaAndCorePrintingTogether.md) provides a possible (unofficial) Swift interpretation of Apple's  Objective-C Technical Note [TN2248 Using Cocoa and Core Printing Together](https://developer.apple.com/library/content/technotes/tn2248/_index.html) (revision 2009.05.27).
 
-[TN2155.swift](PDFPagePrinter/PDFPagePrinter/TN2155.swift) and [TN2248.swift](PDFPagePrinter/PDFPagePrinter/TN2248.swift) files lightly containg tested Swift implementations for the technical notes code listings.  
+[TN2155.swift](PDFPagePrinter/PDFPagePrinter/TN2155.swift) and [TN2248.swift](PDFPagePrinter/PDFPagePrinter/TN2248.swift) files lightly containing tested Swift implementations for the technical notes code listings.  
 
 _NOTE: The source code files may contian more complete and up-to-date Swift code than the example listings in the corresponding markdown files._
 
-## Utility Routines <a id="UtilityRoutines">[▴](#toc)</a>
+## Utility Routines <a id="UtilityRoutines"></a>[▴](#toc)
 
 
 [PrintUtil.swift](PDFPagePrinter/PDFPagePrinter/PrintUtil.swift) provides methods which return a `Dictionary` of values for various _Core Printing_ `OpaquePointer` types.
@@ -39,7 +39,7 @@ getPMPrintSessionInfo(pmPrintSession: PMPrintSession) -> Dictionary<String, Any>
 getPMPrintSettingsInfo(pmPrintSettings: PMPrintSettings) -> Dictionary<String, Any>
 ```
 
-## Resources <a id="Resources">[▴](#toc)</a>
+## Resources <a id="Resources"></a>[▴](#toc)
 
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  

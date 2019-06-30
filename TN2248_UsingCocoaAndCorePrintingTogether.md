@@ -5,7 +5,7 @@ _This document provides a possible (unofficial) Swift interpretation of Apple's 
 <a id="toc"></a>
 | [Modifying Print Settings](#ModifyingPrintSettings) | [Programmatic Paper Selection](#ProgrammaticPaperSelection) | [Resources](#Resources) | 
 
-## Modifying Print Settings <a id="ModifyingPrintSettings">[▴](#toc)</a>
+## Modifying Print Settings <a id="ModifyingPrintSettings"></a>[▴](#toc)
 
 
 How to modify print settings information that is stored in an NSPrintInfo object. Error handling is not shown.
@@ -35,7 +35,7 @@ PMSetCollate(settings, true)     // enable collation
 printInfo.updateFromPMPrintSettings()
 ```
 
-## Programmatic Paper Selection <a id="ProgrammaticPaperSelection">[▴](#toc)</a>
+## Programmatic Paper Selection <a id="ProgrammaticPaperSelection"></a>[▴](#toc)
 
 
 This code snippet illustrates how to replace one of the low level Core Printing objects stored in an NSPrintInfo with a custom object you obtain or create.
@@ -112,7 +112,7 @@ public static func replacePageFormat() -> Int {
 }
 ```
 
-## Resources <a id="Resources">[▴](#toc)</a>
+## Resources <a id="Resources"></a>[▴](#toc)
 
 
 [Apple/ApplicationServices: Core Printing ⇗](https://developer.apple.com/documentation/applicationservices/core_printing)  
